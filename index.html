@@ -245,7 +245,7 @@
     function done(ok) {
       card.classList.add("copied");
       hint.innerHTML = ok ? ICON_DONE : ICON_COPY;
-      ename.textContent = ok ? "Copied ✓" : "Email";
+      ename.textContent = ok ? "Copied" : "Email";
       live.textContent = ok ? "Email address copied" : "";
       if (!ok) { var r = document.createRange(); r.selectNodeContents(document.getElementById("addr")); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
       clearTimeout(timer);
