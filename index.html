@@ -167,12 +167,13 @@
   .ticker.ww .tag { flex: none; display: grid; place-items: center; padding: 0 12px; font-family: var(--crt); font-size: 19px; letter-spacing: .06em; text-transform: uppercase; position: relative; z-index: 1; animation: none; }
   .ticker.ww .track { flex: 1; overflow: hidden; min-width: 0; }
   .ticker.ww .track span { padding: 0; animation: none; }
-  .ticker.ww .track .run { display: inline-flex; align-items: center; gap: 22px; padding: 8px 0 8px 22px; animation: loop 26s linear infinite; }
+  .ticker.ww .track .run { display: inline-flex; align-items: center; gap: 22px; padding: 8px 0 8px 22px; will-change: transform; }
   .ticker.ww i { font-style: normal; font-size: 8px; opacity: .5; }
   .ticker.ww .msg { font-weight: 700; letter-spacing: .06em; opacity: .8; white-space: nowrap; }
   @keyframes loop { to { transform: translateX(-50%); } }
   @media (max-height: 560px) { .ticker.ww { display: flex; } }
   @media (prefers-reduced-motion: reduce) { .ticker.ww .track .run { animation: none; } }
+  @media (max-width: 640px) { .ticker.ww .tag { font-size: 16px; padding: 0 9px; } .ticker.ww .track .run { gap: 16px; } }
   .ticker.ww .tag { background: #000; color: var(--b-yellow); }
 </style>
 </head>
@@ -264,10 +265,37 @@
     });
 
     // swap any logo that fails to load (or isn't uploaded yet) for its name in bold type
-    function wm(img) { var s = document.createElement("span"); s.className = "wm"; s.textContent = img.alt; img.replaceWith(s); }
+    function wm(img) { var s = document.createElement("span"); s.className = "wm"; s.textContent = img.alt; img.replaceWith(s); restartCrawl(); }
     document.querySelectorAll(".lg img").forEach(function (img) {
-      if (img.complete && img.naturalWidth === 0) wm(img); else img.addEventListener("error", function () { wm(img); });
+      if (img.complete && img.naturalWidth === 0) wm(img);
+      else { img.addEventListener("error", function () { wm(img); }); img.addEventListener("load", restartCrawl); }
     });
+
+    // crawl: measured in pixels after fonts/logos settle (Safari won't re-measure a % animation),
+    // moving exactly one copy's width so the loop is seamless, at a constant speed
+    var run = document.querySelector(".ticker .run"), anim = null, pending = null;
+    var SPEED = 45; // px per second
+    function restartCrawl() {
+      if (!run || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      clearTimeout(pending);
+      pending = setTimeout(function () {
+        var kids = run.children, half = kids.length / 2;
+        if (!half || !kids[half]) return;
+        var dist = kids[half].offsetLeft - kids[0].offsetLeft;
+        if (dist <= 0) return;
+        var t = anim ? (anim.currentTime || 0) : 0;
+        if (anim) anim.cancel();
+        if (run.animate) {
+          anim = run.animate([{ transform: "translateX(0)" }, { transform: "translateX(-" + dist + "px)" }],
+                              { duration: dist / SPEED * 1000, iterations: Infinity, easing: "linear" });
+          anim.currentTime = t % (dist / SPEED * 1000);
+        }
+      }, 60);
+    }
+    restartCrawl();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(restartCrawl);
+    window.addEventListener("load", restartCrawl);
+    window.addEventListener("resize", restartCrawl);
   })();
 </script>
 </body>
