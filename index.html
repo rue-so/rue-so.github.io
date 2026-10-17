@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jacob Russo</title>
+<meta name="description" content="Jacob Russo — creative director and producer, Lead Artist at Luma AI, Dream Lab. Official site returning soon.">
+<meta property="og:title" content="Jacob Russo">
+<meta property="og:description" content="Lead Artist at Luma AI, Dream Lab. Please stand by: official site returning soon.">
+<meta property="og:url" content="https://www.jacobrusso.com/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://www.jacobrusso.com/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 70 64'><rect width='10' height='64' fill='%23c0c0c0'/><rect x='10' width='10' height='64' fill='%23c0c000'/><rect x='20' width='10' height='64' fill='%2300c0c0'/><rect x='30' width='10' height='64' fill='%2300c000'/><rect x='40' width='10' height='64' fill='%23c000c0'/><rect x='50' width='10' height='64' fill='%23c00000'/><rect x='60' width='10' height='64' fill='%230000c0'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=VT323&family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Layout: one screen, no scroll. Colour bars flex to fill whatever height is left after the lower third, ticker and channel buttons. */
+  :root {
+    --void: #070707;
+    --screen-text: #f1f1f1;
+    --soft: #cfcfcf;
+    --muted: #8c8c8c;
+    --line: #262626;
+    --b-gray: #c0c0c0; --b-yellow: #c0c000; --b-cyan: #00c0c0; --b-green: #00c000;
+    --b-magenta: #c000c0; --b-red: #c00000; --b-blue: #0000c0;
+    --b-i: #00214c; --b-white: #ffffff; --b-q: #32006a; --b-black: #131313;
+    --pl-1: #090909; --pl-2: #1d1d1d;
+    --btn-1: #f2f200; --btn-2: #00e0e0; --btn-3: #f04bf0;
+    --btn-ink: #050505;
+    --display: "Archivo Black", "Arial Black", Impact, sans-serif;
+    --crt: "VT323", ui-monospace, monospace;
+    --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: var(--void); }
+  body {
+    color: var(--screen-text); font-family: var(--body); -webkit-font-smoothing: antialiased;
+    height: 100vh; height: 100dvh; overflow: hidden;
+    padding-top: max(14px, env(safe-area-inset-top, 0px));
+    padding-bottom: max(14px, env(safe-area-inset-bottom, 0px));
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  main {
+    max-width: 1100px; height: 100%; margin: 0 auto;
+    display: flex; flex-direction: column; justify-content: center; gap: clamp(8px, 1.6vh, 18px);
+  }
+  main > .lower, main > .guide { flex: none; }
+
+  /* colour bars */
+  .bars { position: relative; flex: 0 1 48vh; min-height: 110px; display: grid; grid-template-rows: 67fr 8fr 25fr; overflow: hidden; border-radius: 4px; }
+  .row { display: grid; }
+  .r1, .r2 { grid-template-columns: repeat(7, 1fr); }
+  .r3 { grid-template-columns: 5fr 5fr 5fr 5fr 1.66fr 1.67fr 1.67fr 5fr; }
+  .bars::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px);
+    animation: roll 9s linear infinite;
+  }
+  @keyframes roll { to { background-position: 0 60px; } }
+  .card {
+    position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%);
+    background: #000; border: 3px solid #fff; box-shadow: 0 0 0 4px #000;
+    padding: clamp(6px, 1.6vh, 18px) clamp(14px, 3.5vw, 40px);
+    text-align: center; font-family: var(--crt); line-height: .95; width: max-content; max-width: 90%;
+  }
+  .card .big { font-size: clamp(26px, min(6vw, 8vh), 72px); letter-spacing: .04em; }
+  .card .small { font-size: clamp(15px, min(2.4vw, 3.2vh), 28px); color: var(--soft); margin-top: 4px; }
+  .card .blink { animation: blink 1.6s steps(2, start) infinite; }
+  @keyframes blink { to { visibility: hidden; } }
+  .corner { position: absolute; top: 5%; font-family: var(--crt); font-size: clamp(15px, min(2vw, 3vh), 24px); color: #fff; text-shadow: 2px 2px 0 #000; font-variant-numeric: tabular-nums; }
+  .corner.tl { left: 3%; }
+  .corner.tr { right: 3%; }
+
+  /* lower third */
+  .lower { display: grid; grid-template-columns: auto minmax(0, 1fr); border: 1px solid var(--line); }
+  .bug { background: var(--b-red); display: grid; place-items: center; padding: 0 clamp(12px, 2vw, 20px); font-family: var(--display); font-size: clamp(18px, 2.4vw, 26px); color: #fff; }
+  .lt { padding: clamp(10px, 1.6vh, 16px) clamp(14px, 2vw, 22px); display: flex; flex-direction: column; gap: 4px; min-width: 0; background: linear-gradient(90deg, #151515, #0c0c0c); }
+  .lt h1 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, min(5.6vw, 7.4vh), 64px); line-height: .95; text-transform: uppercase; letter-spacing: -.01em; }
+  .lt .luma { font-weight: 700; font-size: clamp(16px, min(2vw, 2.7vh), 22px); color: var(--screen-text); }
+  .lt .luma .dl { color: var(--btn-1); text-decoration: none; display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+  .lt .luma .pill {
+    font-size: .78em; font-weight: 700; color: var(--btn-ink); background: var(--btn-1);
+    padding: 3px 10px; border-radius: 999px; white-space: nowrap;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .lt .luma .dl:hover .pill { transform: translateY(-2px); box-shadow: 0 0 0 2px #fff; }
+  .lt .luma .dl:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  .lt .role { font-size: clamp(13px, 1.4vw, 15px); color: var(--soft); }
+  .ticker { grid-column: 1 / -1; overflow: hidden; background: var(--b-yellow); color: #000; font-weight: 700; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+  .ticker span { display: inline-block; padding: 7px 0; padding-left: 100%; animation: tick 28s linear infinite; }
+  @keyframes tick { to { transform: translateX(-100%); } }
+
+  /* channel buttons */
+  .guide { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(8px, 1.2vw, 12px); }
+  .guide .btn {
+    position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 4px 12px;
+    padding: clamp(10px, 2.4vh, 24px) clamp(14px, 1.8vw, 22px);
+    color: var(--btn-ink); text-decoration: none; border-radius: 6px; cursor: pointer;
+    box-shadow: 0 0 0 0 transparent, 0 6px 0 rgba(255,255,255,.08);
+    transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+  }
+  .guide .btn:nth-child(1) { background: var(--btn-1); }
+  .guide .btn:nth-child(2) { background: var(--btn-2); }
+  .guide .btn:nth-child(3) { background: var(--btn-3); }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  /* email card: the whole card copies the address; the round button opens the mail app */
+  .guide .copy {
+    position: absolute; inset: 0; z-index: 1; border: 0; border-radius: 6px; background: transparent; cursor: pointer;
+    font: inherit; color: transparent;
+  }
+  .guide .copy:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  .guide .email .go { position: relative; z-index: 2; text-decoration: none; }
+  .guide .email .go:hover, .guide .email .go:focus-visible { transform: rotate(45deg); outline: none; box-shadow: 0 0 0 2px #fff; }
+  .guide .ico { display: inline-grid; place-items: center; width: 1.25em; height: 1.25em; margin-left: 7px; vertical-align: -3px; }
+  .guide .ico svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .guide .lab { display: flex; flex-direction: column; gap: 2px; min-width: 0; grid-column: 1; grid-row: 1; }
+  .guide .v { grid-column: 1; grid-row: 2; }
+  .guide .go { grid-column: 2; grid-row: 1 / span 2; }
+  .guide .ch { font-family: var(--crt); font-size: 18px; line-height: 1; opacity: .7; }
+  .guide .name { font-family: var(--display); font-size: clamp(20px, min(2.4vw, 3.4vh), 28px); line-height: 1; text-transform: uppercase; }
+  .guide .v { font-weight: 600; font-size: clamp(13px, 1.3vw, 16px); overflow-wrap: anywhere; }
+  .guide .go {
+    width: clamp(34px, 4vh, 44px); aspect-ratio: 1; border-radius: 50%; background: var(--btn-ink); color: #fff;
+    display: grid; place-items: center; font-size: 18px; font-weight: 700;
+    transition: transform .12s ease;
+  }
+  .guide .btn:hover { transform: translateY(-3px); box-shadow: 0 0 0 3px #fff, 0 10px 24px rgba(0,0,0,.6); }
+  a.btn:hover .go { transform: rotate(45deg); }
+  .guide .btn:active { transform: translateY(0); }
+  a.btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+  @media (max-width: 640px) {
+    .guide { grid-template-columns: 1fr; }
+    .guide .btn { grid-template-columns: auto minmax(0, 1fr) auto; }
+    .guide .lab { display: contents; }
+    .guide .ch { display: none; }
+    .guide .name { font-size: 20px; grid-column: 1; grid-row: 1; }
+    .guide .v { text-align: right; font-size: 13px; grid-column: 2; grid-row: 1; }
+    .guide .go { width: 30px; font-size: 15px; grid-column: 3; grid-row: 1; }
+    .lt .role { display: none; }
+    .corner { font-size: 14px; }
+  }
+  @media (max-height: 560px) {
+    .ticker { display: none; }
+    .lt .role { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bars::after, .card .blink { animation: none; }
+    .ticker span { animation: none; padding-left: 16px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="bars" role="img" aria-label="Colour bars with a card reading: please stand by, official site returning soon">
+    <div class="row r1">
+      <i style="background:var(--b-gray)"></i><i style="background:var(--b-yellow)"></i><i style="background:var(--b-cyan)"></i><i style="background:var(--b-green)"></i><i style="background:var(--b-magenta)"></i><i style="background:var(--b-red)"></i><i style="background:var(--b-blue)"></i>
+    </div>
+    <div class="row r2">
+      <i style="background:var(--b-blue)"></i><i style="background:var(--b-black)"></i><i style="background:var(--b-magenta)"></i><i style="background:var(--b-black)"></i><i style="background:var(--b-cyan)"></i><i style="background:var(--b-black)"></i><i style="background:var(--b-gray)"></i>
+    </div>
+    <div class="row r3">
+      <i style="background:var(--b-i)"></i><i style="background:var(--b-white)"></i><i style="background:var(--b-q)"></i><i style="background:var(--b-black)"></i><i style="background:var(--pl-1)"></i><i style="background:var(--b-black)"></i><i style="background:var(--pl-2)"></i><i style="background:var(--b-black)"></i>
+    </div>
+    <span class="corner tl">JR-TV · CH 01</span>
+    <span class="corner tr" id="clock">LA --:--:--</span>
+    <div class="card">
+      <div class="big">PLEASE STAND BY</div>
+      <div class="small"><span class="blink">●</span> OFFICIAL SITE RETURNING SOON</div>
+    </div>
+  </div>
+
+  <section class="lower">
+    <div class="bug" aria-hidden="true">JR</div>
+    <div class="lt">
+      <h1>Jacob Russo</h1>
+      <p class="luma">Lead Artist at <a class="dl" href="https://www.instagram.com/dreamlabla/" target="_blank" rel="noopener">Luma AI, Dream Lab <span class="pill">@dreamlabla ↗</span></a></p>
+      <p class="role">Creative Director &amp; Producer · Los Angeles</p>
+    </div>
+    <div class="ticker" aria-hidden="true"><span>Scheduled upgrade in progress · The full site is in post-production · Regular programming resumes soon · Meanwhile, tune in on the channels below ·</span></div>
+  </section>
+
+  <nav class="guide" aria-label="Contact">
+    <a class="btn" href="https://www.instagram.com/jrussofilms/" target="_blank" rel="me noopener">
+      <span class="lab"><span class="ch">CH 02</span><span class="name">Instagram</span></span>
+      <span class="v">@jrussofilms</span>
+      <span class="go" aria-hidden="true">↗</span>
+    </a>
+    <a class="btn" href="https://www.linkedin.com/in/jake-russo/" target="_blank" rel="me noopener">
+      <span class="lab"><span class="ch">CH 03</span><span class="name">LinkedIn</span></span>
+      <span class="v">/in/jake-russo</span>
+      <span class="go" aria-hidden="true">↗</span>
+    </a>
+    <div class="btn email" id="emailCard">
+      <span class="lab"><span class="ch">CH 04</span><span class="name" id="ename">Email</span></span>
+      <span class="v"><span id="addr">jrussofilms@gmail.com</span><span class="ico" id="hint" aria-hidden="true"></span></span>
+      <button type="button" class="copy" id="copyEmail" title="Copy email address" aria-label="Copy email address jrussofilms@gmail.com"></button>
+      <a class="go" href="mailto:jrussofilms@gmail.com" title="Open in your mail app" aria-label="Open in your mail app">↗</a>
+      <span class="sr" aria-live="polite" id="live"></span>
+    </div>
+  </nav>
+</main>
+<script>
+  (function () {
+    var clock = document.getElementById("clock");
+    function t() {
+      try { clock.textContent = "LA " + new Date().toLocaleTimeString("en-US", { hour12: false, timeZone: "America/Los_Angeles" }); }
+      catch (e) { clock.textContent = "LA " + new Date().toLocaleTimeString(); }
+    }
+    t(); setInterval(t, 1000);
+
+    // email: click the card to copy the address; the round button opens the mail app
+    var EMAIL = "jrussofilms@gmail.com";
+    var card = document.getElementById("emailCard"), hint = document.getElementById("hint"), live = document.getElementById("live"), ename = document.getElementById("ename"), timer;
+    var ICON_COPY = '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>';
+    var ICON_DONE = '<svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>';
+    hint.innerHTML = ICON_COPY;
+    function done(ok) {
+      card.classList.add("copied");
+      hint.innerHTML = ok ? ICON_DONE : ICON_COPY;
+      ename.textContent = ok ? "Copied ✓" : "Email";
+      live.textContent = ok ? "Email address copied" : "";
+      if (!ok) { var r = document.createRange(); r.selectNodeContents(document.getElementById("addr")); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+      clearTimeout(timer);
+      timer = setTimeout(function () { card.classList.remove("copied"); hint.innerHTML = ICON_COPY; ename.textContent = "Email"; live.textContent = ""; }, 2000);
+    }
+    function fallback() {
+      try {
+        var ta = document.createElement("textarea");
+        ta.value = EMAIL; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.select();
+        var ok = document.execCommand("copy"); document.body.removeChild(ta); done(ok);
+      } catch (e) { done(false); }
+    }
+    document.getElementById("copyEmail").addEventListener("click", function () {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(EMAIL).then(function () { done(true); }, fallback);
+      else fallback();
+    });
+  })();
+</script>
+</body>
+</html>
