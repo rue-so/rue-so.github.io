@@ -81,13 +81,14 @@
   .lt { padding: clamp(10px, 1.6vh, 16px) clamp(14px, 2vw, 22px); display: flex; flex-direction: column; gap: 4px; min-width: 0; background: linear-gradient(90deg, #151515, #0c0c0c); }
   .lt h1 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, min(5.6vw, 7.4vh), 64px); line-height: .95; text-transform: uppercase; letter-spacing: -.01em; }
   .lt .luma { font-weight: 700; font-size: clamp(16px, min(2vw, 2.7vh), 22px); color: var(--screen-text); }
-  .lt .luma .dl { color: var(--btn-1); text-decoration: none; display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+  .lt .luma .dl { color: var(--screen-text); text-decoration: none; display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
   .lt .luma .pill {
-    font-size: .78em; font-weight: 700; color: var(--btn-ink); background: var(--btn-1);
-    padding: 3px 10px; border-radius: 999px; white-space: nowrap;
-    transition: transform .12s ease, box-shadow .12s ease;
+    font-size: .78em; font-weight: 700; color: var(--screen-text); background: transparent;
+    border: 1.5px solid rgba(241,241,241,.55);
+    padding: 2px 10px; border-radius: 999px; white-space: nowrap;
+    transition: background-color .12s ease, color .12s ease, border-color .12s ease;
   }
-  .lt .luma .dl:hover .pill { transform: translateY(-2px); box-shadow: 0 0 0 2px #fff; }
+  .lt .luma .dl:hover .pill { background: var(--screen-text); color: var(--btn-ink); border-color: var(--screen-text); }
   .lt .luma .dl:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
   .lt .role { font-size: clamp(13px, 1.4vw, 15px); color: var(--soft); }
   .ticker { grid-column: 1 / -1; overflow: hidden; background: var(--b-yellow); color: #000; font-weight: 700; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
@@ -103,9 +104,9 @@
     box-shadow: 0 0 0 0 transparent, 0 6px 0 rgba(255,255,255,.08);
     transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
   }
-  .guide .btn:nth-child(1) { background: var(--btn-1); }
-  .guide .btn:nth-child(2) { background: var(--btn-2); }
-  .guide .btn:nth-child(3) { background: var(--btn-3); }
+  .guide .btn:nth-child(1) { background: var(--btn-2); }
+  .guide .btn:nth-child(2) { background: var(--btn-3); }
+  .guide .btn:nth-child(3) { background: var(--btn-1); }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   /* email card: the whole card copies the address; the round button opens the mail app */
   .guide .copy {
@@ -152,6 +153,27 @@
     .bars::after, .card .blink { animation: none; }
     .ticker span { animation: none; padding-left: 16px; }
   }
+  .arr { width: 1em; height: 1em; display: block; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+  .lt .luma .pill .arr { display: inline-block; width: .9em; height: .9em; vertical-align: -1px; margin-left: 2px; }
+
+  /* logo slots: each loads logos/<name>.png; until a file exists, the name shows as a bold wordmark */
+  .lg { display: inline-flex; align-items: center; flex: none; }
+  .lg img { display: block; height: var(--logo-h, 18px); width: auto; max-width: 120px; object-fit: contain; }
+  .lg .wm { font-family: var(--display); text-transform: uppercase; letter-spacing: .02em; line-height: 1; font-size: calc(var(--logo-h, 18px) * .82); }
+  .lg.ink img { filter: brightness(0); }
+  .lg.paper img { filter: brightness(0) invert(1); }
+
+  .ticker.ww { display: flex; align-items: stretch; --logo-h: 17px; }
+  .ticker.ww .tag { flex: none; display: grid; place-items: center; padding: 0 12px; font-family: var(--crt); font-size: 19px; letter-spacing: .06em; text-transform: uppercase; position: relative; z-index: 1; animation: none; }
+  .ticker.ww .track { flex: 1; overflow: hidden; min-width: 0; }
+  .ticker.ww .track span { padding: 0; animation: none; }
+  .ticker.ww .track .run { display: inline-flex; align-items: center; gap: 22px; padding: 8px 0 8px 22px; animation: loop 26s linear infinite; }
+  .ticker.ww i { font-style: normal; font-size: 8px; opacity: .5; }
+  .ticker.ww .msg { font-weight: 700; letter-spacing: .06em; opacity: .8; white-space: nowrap; }
+  @keyframes loop { to { transform: translateX(-50%); } }
+  @media (max-height: 560px) { .ticker.ww { display: flex; } }
+  @media (prefers-reduced-motion: reduce) { .ticker.ww .track .run { animation: none; } }
+  .ticker.ww .tag { background: #000; color: var(--b-yellow); }
 </style>
 </head>
 <body>
@@ -178,28 +200,28 @@
     <div class="bug" aria-hidden="true">JR</div>
     <div class="lt">
       <h1>Jacob Russo</h1>
-      <p class="luma">Lead Artist at <a class="dl" href="https://www.instagram.com/dreamlabla/" target="_blank" rel="noopener">Luma AI, Dream Lab <span class="pill">@dreamlabla ↗</span></a></p>
+      <p class="luma">Lead Artist at <a class="dl" href="https://www.instagram.com/dreamlabla/" target="_blank" rel="noopener">Luma AI, Dream Lab <span class="pill">@dreamlabla <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a></p>
       <p class="role">Creative Director &amp; Producer · Los Angeles</p>
     </div>
-    <div class="ticker" aria-hidden="true"><span>Scheduled upgrade in progress · The full site is in post-production · Regular programming resumes soon · Meanwhile, tune in on the channels below ·</span></div>
+    <div class="ticker ww" aria-label="Worked with Disney, Netflix, Adobe, TikTok, Amazon Studios, Meta, Tencent, Microsoft"><span class="tag">Worked with</span><div class="track"><span class="run"><span class="lg ink"><img src="logos/disney.png" alt="Disney"></span><i>■</i><span class="lg ink"><img src="logos/netflix.png" alt="Netflix"></span><i>■</i><span class="lg ink"><img src="logos/adobe.png" alt="Adobe"></span><i>■</i><span class="lg ink"><img src="logos/tiktok.png" alt="TikTok"></span><i>■</i><span class="lg ink"><img src="logos/amazon-studios.png" alt="Amazon Studios"></span><i>■</i><span class="lg ink"><img src="logos/meta.png" alt="Meta"></span><i>■</i><span class="lg ink"><img src="logos/tencent.png" alt="Tencent"></span><i>■</i><span class="lg ink"><img src="logos/microsoft.png" alt="Microsoft"></span><i>■</i><span class="lg ink"><img src="logos/disney.png" aria-hidden="true" alt="Disney"></span><i>■</i><span class="lg ink"><img src="logos/netflix.png" aria-hidden="true" alt="Netflix"></span><i>■</i><span class="lg ink"><img src="logos/adobe.png" aria-hidden="true" alt="Adobe"></span><i>■</i><span class="lg ink"><img src="logos/tiktok.png" aria-hidden="true" alt="TikTok"></span><i>■</i><span class="lg ink"><img src="logos/amazon-studios.png" aria-hidden="true" alt="Amazon Studios"></span><i>■</i><span class="lg ink"><img src="logos/meta.png" aria-hidden="true" alt="Meta"></span><i>■</i><span class="lg ink"><img src="logos/tencent.png" aria-hidden="true" alt="Tencent"></span><i>■</i><span class="lg ink"><img src="logos/microsoft.png" aria-hidden="true" alt="Microsoft"></span><i>■</i></span></div></div>
   </section>
 
   <nav class="guide" aria-label="Contact">
     <a class="btn" href="https://www.instagram.com/jrussofilms/" target="_blank" rel="me noopener">
       <span class="lab"><span class="ch">CH 02</span><span class="name">Instagram</span></span>
       <span class="v">@jrussofilms</span>
-      <span class="go" aria-hidden="true">↗</span>
+      <span class="go" aria-hidden="true"><svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
     </a>
     <a class="btn" href="https://www.linkedin.com/in/jake-russo/" target="_blank" rel="me noopener">
       <span class="lab"><span class="ch">CH 03</span><span class="name">LinkedIn</span></span>
       <span class="v">/in/jake-russo</span>
-      <span class="go" aria-hidden="true">↗</span>
+      <span class="go" aria-hidden="true"><svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
     </a>
     <div class="btn email" id="emailCard">
       <span class="lab"><span class="ch">CH 04</span><span class="name" id="ename">Email</span></span>
       <span class="v"><span id="addr">jrussofilms@gmail.com</span><span class="ico" id="hint" aria-hidden="true"></span></span>
       <button type="button" class="copy" id="copyEmail" title="Copy email address" aria-label="Copy email address jrussofilms@gmail.com"></button>
-      <a class="go" href="mailto:jrussofilms@gmail.com" title="Open in your mail app" aria-label="Open in your mail app">↗</a>
+      <a class="go" href="mailto:jrussofilms@gmail.com" title="Open in your mail app" aria-label="Open in your mail app"><svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
       <span class="sr" aria-live="polite" id="live"></span>
     </div>
   </nav>
@@ -239,6 +261,12 @@
     document.getElementById("copyEmail").addEventListener("click", function () {
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(EMAIL).then(function () { done(true); }, fallback);
       else fallback();
+    });
+
+    // swap any logo that fails to load (or isn't uploaded yet) for its name in bold type
+    function wm(img) { var s = document.createElement("span"); s.className = "wm"; s.textContent = img.alt; img.replaceWith(s); }
+    document.querySelectorAll(".lg img").forEach(function (img) {
+      if (img.complete && img.naturalWidth === 0) wm(img); else img.addEventListener("error", function () { wm(img); });
     });
   })();
 </script>
